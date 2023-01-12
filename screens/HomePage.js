@@ -5,13 +5,20 @@ import {
   TextInput,
   FlatList,
   Image,
+  Button,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { firestore } from "../config/firebase";
+import { useNavigation } from "@react-navigation/native";
+
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [posts, setPosts] = useState([]);
+  const navigation = useNavigation();
 
+  const handleProfilePress = (postId) => {
+    navigation.navigate("Profile", { postId });
+  };
   useEffect(() => {
     const unsubscribe = firestore
       .collection("posts")
@@ -38,7 +45,7 @@ const HomePage = () => {
           style={styles.searchInput}
           value={searchTerm}
           onChangeText={handleSearch}
-          placeholder="Search..."
+          placeholder="Search by categories..."
         />
       </View>
 
@@ -49,16 +56,19 @@ const HomePage = () => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.postContainer}>
-            <Image source={{ uri: item.image }} style={styles.image} />
-            <View style={styles.textContainer}>
-              <Text>{item.firstName}</Text>
-              <Text>{item.lastName}</Text>
-              <Text>{item.info}</Text>
-              <Text>{item.email}</Text>
-              <Text>{item.phone}</Text>
-              <Text>{item.category}</Text>
+              <Image source={{ uri: item.image }} style={styles.image} />
+              <View style={styles.textContainer}>
+                <Text>{item.firstName}</Text>
+                <Text>{item.lastName}</Text>
+                <Text>{item.category}</Text>
+                <View style={styles.buttonContainer}>
+                <Button
+                title="Gå to profile"
+                onPress={() => handleProfilePress(item.id)}
+              />
+                </View>
+              </View>
             </View>
-          </View>
           )}
         />
       </View>
@@ -99,7 +109,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 5,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   image: {
     width: 100,
@@ -109,5 +119,9 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     justifyContent: "center",
+  },
+  buttonContainer: {
+    position: "absolute",
+    right: 0,
   },
 });

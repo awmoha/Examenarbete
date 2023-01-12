@@ -30,20 +30,6 @@ const HomeScreen = () => {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Ionicons
-              name={focused ? "settings" : "settings-outline"}
-              size={26}
-              color={focused ? "#2f95dc" : "gray"}
-            />
-          ),
-        }}
-        name="Settings"
-        component={Settings}
-      />
-      <Tab.Screen
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
               name={focused ? "create" : "create-outline"}
               size={26}
               color={focused ? "#2f95dc" : "gray"}
@@ -52,6 +38,20 @@ const HomeScreen = () => {
         }}
         name="Post"
         component={Post}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? "settings" : "settings-outline"}
+              size={26}
+              color={focused ? "#2f95dc" : "gray"}
+            />
+          ),
+        }}
+        name="Settings"
+        component={Settings}
       />
     </Tab.Navigator>
   );

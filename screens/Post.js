@@ -15,8 +15,12 @@ export default function Post() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [image, setImage] = useState("");
-  const [pickerValue, setPickerValue] = useState("");
-
+  const [pickerValue, setPickerValue] = useState("category1");
+  const categories = [
+    { label: "Software", value: "Software" },
+    { label: "Design", value: "Design" },
+    { label: "Codning", value: "Codning" },
+  ];
   const states = [
     setFirstName,
     setLastName,
@@ -41,9 +45,6 @@ export default function Post() {
       category: pickerValue,
     };
     firestore.collection("posts").add(post);
-    setTimeout(() => {
-      alert("Post created successfully!");
-    }, 2000);
     states.forEach((setter) => setter(""));
   };
 
@@ -93,13 +94,12 @@ export default function Post() {
       />
       <Picker
         selectedValue={pickerValue}
-        onValueChange={(itemValue, itemIndex) => setPickerValue(itemValue)}
+        onValueChange={(itemValue) => setPickerValue(itemValue)}
         style={styles.picker}
-        required
       >
-        <Picker.Item label="Category 1" value="category1" />
-        <Picker.Item label="Category 2" value="category2" />
-        <Picker.Item label="Category 3" value="category3" />
+        {categories.map(({ label, value }) => (
+          <Picker.Item key={value} label={label} value={value} />
+        ))}
       </Picker>
       <View style={styles.buttonContainer}>
         <Button title="Create" onPress={handleSubmit} />
