@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { useNavigation } from "@react-navigation/native";
+import { AlanView } from "@alan-ai/alan-sdk-react-native";
 
 const Settings = () => {
   const [email, setEmail] = useState("");
