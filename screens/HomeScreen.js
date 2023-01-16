@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import HomePage from "./HomePage";
@@ -8,7 +8,10 @@ import Post from "./Post";
 
 const Tab = createBottomTabNavigator();
 
+
 const HomeScreen = () => {
+
+
   return (
     <Tab.Navigator>
       <Tab.Screen

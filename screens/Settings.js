@@ -1,11 +1,23 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  StatusBar,
+  useColorScheme,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+
 import { useNavigation } from "@react-navigation/native";
-import { AlanView } from "@alan-ai/alan-sdk-react-native";
 
 const Settings = () => {
+  const isDarkMode = useColorScheme() === "dark";
+  const backgroundColor = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
@@ -25,6 +37,10 @@ const Settings = () => {
 
   return (
     <View>
+      <StatusBar
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
+        backgroundColor={backgroundColor.backgroundColor}
+      />
       <Text>Email: {email}</Text>
       <Text>Password: {password}</Text>
       <Button title="Logout" onPress={handleLogout} />

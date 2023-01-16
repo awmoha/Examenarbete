@@ -7,6 +7,7 @@ import {
   Image,
   Button,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { firestore } from "../config/firebase";
@@ -17,8 +18,11 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearch, setShowSearch] = useState(true);
   const [posts, setPosts] = useState([]);
-  const navigation = useNavigation();
 
+  const navigation = useNavigation();
+  const handleSettingsProfilePress = () => {
+    navigation.navigate("ProfileSettings");
+  };
   const handleProfilePress = (postId) => {
     navigation.navigate("Profile", { postId });
   };
@@ -38,23 +42,22 @@ const HomePage = () => {
     setSearchTerm(text);
   };
 
-  const handleScroll = (event) => {
-    const currentOffset = event.nativeEvent.contentOffset.y;
+  // const handleScroll = (event) => {
+  //   const currentOffset = event.nativeEvent.contentOffset.y;
 
-    if (currentOffset > 0) {
-      setShowSearch(false);
-    } else {
-      setShowSearch(true);
-    }
-  };
+  //   if (currentOffset > 0) {
+  //     setShowSearch(false);
+  //   } else {
+  //     setShowSearch(true);
+  //   }
+  // };
   const filteredPosts = posts.filter((post) => {
     return post.category.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
   return (
-    <ScrollView onScroll={handleScroll} scrollEventThrottle={32}>
       <View>
-        {showSearch && (
+        <View style={styles.container}>
           <View style={styles.searchContainer}>
             <Ionicons name="ios-search-sharp" size={24} color="black" />
             <TextInput
@@ -63,45 +66,74 @@ const HomePage = () => {
               onChangeText={handleSearch}
               placeholder="Search by categories..."
             />
+            <Ionicons name="filter-outline" size={24} color="black" />
           </View>
-        )}
+          <View style={styles.profileContainer}>
+            <Ionicons
+              name="ios-person"
+              size={24}
+              color="black"
+              onPress={handleSettingsProfilePress}
+            />
+            <View style={styles.activeDot} />
+          </View>
+          {/* <View style={styles.profileContainer}>
+            <TouchableOpacity onPress={() => setIsDarkMode(!isDarkMode)}>
+              <Ionicons name="md-moon" size={24} color="#52575D" />
+            </TouchableOpacity>
+          </View> */}
+        </View>
 
         <View style={styles.container}>
-          <FlatList
-            contentContainerStyle={styles.listContainer}
-            data={searchTerm ? filteredPosts : posts}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.postContainer}>
-                <Image source={{ uri: item?.image }} style={styles.image} />
-                <View style={styles.textContainer}>
-                  <Text>First name: {item.firstName}</Text>
-                  <Text>Last name: {item.lastName}</Text>
-                  <Text>category: {item.category}</Text>
-                  <View style={styles.buttonContainer}>
-                    <Button
-                      title="Show"
-                      titleStyle={styles.buttonTitle}
-                      onPress={() => handleProfilePress(item.id)}
-                    />
+            <FlatList
+              data={searchTerm ? filteredPosts : posts}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <View style={styles.postContainer}>
+                  <Image source={{ uri: item?.image }} style={styles.image} />
+                  <View style={styles.textContainer}>
+                    <Text>
+                      {item.firstName} {item.lastName}
+                    </Text>
+                    <Text>Category: {item.category}</Text>
+                    <View style={styles.buttonContainer}>
+                      <Button
+                        title="Show"
+                        titleStyle={styles.buttonTitle}
+                        onPress={() => handleProfilePress(item.id)}
+                      />
+                    </View>
                   </View>
                 </View>
-              </View>
-            )}
-          />
+              )}
+            />
         </View>
       </View>
-    </ScrollView>
   );
 };
 
 export default HomePage;
 
 const styles = StyleSheet.create({
-  searchContainer: {
-    display: "fixed",
+  darkContainer: {
+    backgroundColor: "#333333",
+  },
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     margin: 10,
-    padding: 10,
+  },
+  profileContainer: {
+    margin: 10,
+    top: 10,
+    padding: 4,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  searchContainer: {
+    flex: 1,
+    top: 10,
+    padding: 4,
     borderWidth: 1,
     borderColor: "lightgray",
     borderRadius: 10,
@@ -121,6 +153,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     fontSize: 18,
+  },
+  activeDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: "green",
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
 
   postContainer: {
