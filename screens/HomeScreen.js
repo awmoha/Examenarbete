@@ -1,19 +1,28 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import HomePage from "./HomePage";
 import Settings from "./Settings";
 import Post from "./Post";
-
+import { ThemeContext } from "../context/ThemeContext";
 const Tab = createBottomTabNavigator();
 
-
 const HomeScreen = () => {
-
+  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: isDarkMode ? "white" : "black",
+        inactiveTintColor: isDarkMode ? "white" : "black",
+        activeBackgroundColor : isDarkMode ? "black" : "white",
+        inactiveBackgroundColor : isDarkMode ? "black" : "white",
+        style: {
+          backgroundColor: isDarkMode ? 'black' : 'white'
+        }
+      }}
+    >
       <Tab.Screen
         options={{
           headerShown: false,
@@ -22,6 +31,7 @@ const HomeScreen = () => {
               name={focused ? "home" : "home-outline"}
               size={26}
               color={focused ? "#2f95dc" : "gray"}
+              style={focused ? styles.focusedIcon : styles.icon}
             />
           ),
         }}
@@ -72,5 +82,8 @@ const styles = StyleSheet.create({
   text: {
     color: "black",
     fontSize: 20,
+  },
+  darkModeTabNav: {
+    backgroundColor: "black",
   },
 });

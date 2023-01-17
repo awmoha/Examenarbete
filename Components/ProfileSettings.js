@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import { ThemeContext } from "../context/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -20,8 +21,8 @@ const ProfileSettings = () => {
   const [valueFollowing, setValueFollowing] = useState(
     Math.floor(Math.random() * 100)
   );
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [password, setPassword] = useState("");
+  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -45,22 +46,17 @@ const ProfileSettings = () => {
   };
   return (
     <SafeAreaView
-      style={[styles.container, isDarkMode && styles.darkContainer]}
+      style={isDarkMode ? styles.darkMode_SafeAreaView : styles.container}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}>
           <Ionicons
             name="ios-arrow-back"
             size={24}
-            style={[
-              styles.text,
-              { color: "#52575D", fontWeight: "300" } &&
-                isDarkMode &&
-                styles.darkText,
-            ]}
+            style={[styles.text, { color: "#52575D", fontWeight: "300" }]}
             onPress={handleSettingsProfilePress}
           ></Ionicons>
-          <TouchableOpacity onPress={() => setIsDarkMode(!isDarkMode)}>
+          <TouchableOpacity>
             <Ionicons name="md-moon" size={24} color="#52575D" />
           </TouchableOpacity>
         </View>
@@ -93,15 +89,34 @@ const ProfileSettings = () => {
         </View>
 
         <View style={styles.infoContainer}>
-          <Text style={[styles.text, { fontWeight: "200", fontSize: 36 }]}>
+          <Text
+            style={[
+              isDarkMode ? styles.darkModeText : styles.text,
+              { fontWeight: "200", fontSize: 36 },
+            ]}
+          >
             {email}
           </Text>
         </View>
 
         <View style={styles.statsContainer}>
           <View style={styles.statsBox}>
-            <Text style={[styles.text, { fontSize: 24 }]}>1</Text>
-            <Text style={[styles.text, styles.subText]}>Posts</Text>
+            <Text
+              style={[
+                isDarkMode ? styles.darkModeText : styles.text,
+                { fontSize: 24 },
+              ]}
+            >
+              1
+            </Text>
+            <Text
+              style={[
+                isDarkMode ? styles.darkModeText : styles.text,
+                styles.subText,
+              ]}
+            >
+              Posts
+            </Text>
           </View>
           <View
             style={[
@@ -113,14 +128,40 @@ const ProfileSettings = () => {
               },
             ]}
           >
-            <Text style={[styles.text, { fontSize: 24 }]}>{value}</Text>
-            <Text style={[styles.text, styles.subText]}>Followers</Text>
+            <Text
+              style={[
+                isDarkMode ? styles.darkModeText : styles.text,
+                { fontSize: 24 },
+              ]}
+            >
+              {value}
+            </Text>
+            <Text
+              style={[
+                isDarkMode ? styles.darkModeText : styles.text,
+                styles.subText,
+              ]}
+            >
+              Followers
+            </Text>
           </View>
           <View style={styles.statsBox}>
-            <Text style={[styles.text, { fontSize: 24 }]}>
+            <Text
+              style={[
+                isDarkMode ? styles.darkModeText : styles.text,
+                { fontSize: 24 },
+              ]}
+            >
               {valueFollowing}
             </Text>
-            <Text style={[styles.text, styles.subText]}>Following</Text>
+            <Text
+              style={[
+                isDarkMode ? styles.darkModeText : styles.text,
+                styles.subText,
+              ]}
+            >
+              Following
+            </Text>
           </View>
         </View>
 
@@ -131,10 +172,8 @@ const ProfileSettings = () => {
             <View style={{ width: 250 }}>
               <Text
                 style={[
-                  styles.text,
-                  { color: "#41444B", fontWeight: "300" } &&
-                    isDarkMode &&
-                    styles.darkText,
+                  isDarkMode ? styles.darkModeText : styles.text,
+                  { fontWeight: "300" },
                 ]}
               >
                 Started following
@@ -147,10 +186,8 @@ const ProfileSettings = () => {
             <View style={{ width: 250 }}>
               <Text
                 style={[
-                  styles.text,
-                  { color: "#41444B", fontWeight: "300" } &&
-                    isDarkMode &&
-                    styles.darkText,
+                  isDarkMode ? styles.darkModeText : styles.text,
+                  { fontWeight: "300" },
                 ]}
               >
                 Started following
@@ -166,12 +203,11 @@ const ProfileSettings = () => {
             <View style={styles.activityIndicator}></View>
             <View style={{ width: 250 }}>
               <Text
-                style={[
-                  styles.text,
-                  { color: "#41444B", fontWeight: "300" } &&
-                    isDarkMode &&
-                    styles.darkText,
-                ]}
+                style={
+                  isDarkMode
+                    ? styles.darkModeText
+                    : [styles.text, { fontWeight: "300" }]
+                }
               >
                 Email: {email}
               </Text>
@@ -191,18 +227,13 @@ export default ProfileSettings;
 
 const styles = StyleSheet.create({
   container: {
+    height: "100%",
     flex: 1,
     backgroundColor: "#FFF",
   },
-  darkContainer: {
-    backgroundColor: "#333333",
-  },
-  darkText: {
-    color: "#FFF",
-  },
   text: {
     fontFamily: "HelveticaNeue",
-    color: "#52575D",
+    color: "black",
   },
   image: {
     flex: 1,
@@ -293,5 +324,12 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginRight: 20,
   },
-
+  darkMode_SafeAreaView: {
+    height: "100%",
+    backgroundColor: "black",
+  },
+  darkModeText: {
+    fontFamily: "HelveticaNeue",
+    color: "white",
+  },
 });

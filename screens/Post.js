@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -8,7 +8,9 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { firestore } from "../config/firebase";
+import { ThemeContext } from "../context/ThemeContext";
 export default function Post() {
+  const { isDarkMode } = useContext(ThemeContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [info, setInfo] = useState("");
@@ -57,24 +59,24 @@ export default function Post() {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={isDarkMode ? styles.darkMode : styles.lightMode}>
       <View style={styles.container}>
         <TextInput
-          style={styles.input}
+          style={isDarkMode ? styles.darkModeInput : styles.input}
           value={firstName}
           onChangeText={setFirstName}
           placeholder="FirstName..."
           required
         />
         <TextInput
-          style={styles.input}
+          style={isDarkMode ? styles.darkModeInput : styles.input}
           value={lastName}
           onChangeText={setLastName}
           placeholder="LastName..."
           required
         />
         <TextInput
-          style={styles.input}
+          style={isDarkMode ? styles.darkModeInput : styles.input}
           value={info}
           onChangeText={setInfo}
           placeholder="Info..."
@@ -83,7 +85,7 @@ export default function Post() {
           required
         />
         <TextInput
-          style={styles.input}
+          style={isDarkMode ? styles.darkModeInput : styles.input}
           value={price}
           onChangeText={setPrice}
           placeholder="Price..USD"
@@ -92,7 +94,7 @@ export default function Post() {
         />
 
         <TextInput
-          style={styles.input}
+          style={isDarkMode ? styles.darkModeInput : styles.input}
           value={email}
           onChangeText={setEmail}
           placeholder="Email..."
@@ -100,7 +102,7 @@ export default function Post() {
           required
         />
         <TextInput
-          style={styles.input}
+          style={isDarkMode ? styles.darkModeInput : styles.input}
           value={phone}
           onChangeText={setPhone}
           placeholder="Phone..."
@@ -108,14 +110,14 @@ export default function Post() {
           required
         />
         <TextInput
-          style={styles.input}
+          style={isDarkMode ? styles.darkModeInput : styles.input}
           value={image}
           onChangeText={setImage}
           placeholder="Image URL..."
           required
         />
         <TextInput
-          style={styles.input}
+          style={isDarkMode ? styles.darkModeInput : styles.input}
           value={category}
           onChangeText={setCategory}
           placeholder="Category..."
@@ -137,6 +139,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+  },
+  darkMode: {
+    backgroundColor: "black",
+  },
+  lightMode: {
+    backgroundColor: "white",
   },
   input: {
     borderWidth: 1,
@@ -162,5 +170,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     backgroundColor: "#2A2A2D",
+  },
+
+  darkModeInput: {
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "gray",
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 10,
   },
 });
