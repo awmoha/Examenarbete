@@ -10,7 +10,7 @@ import {
   Button,
   StatusBar,
 } from "react-native";
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -37,6 +37,10 @@ const Settings = () => {
   const handleLogout = () => {
     firebase.auth().signOut();
     navigation.navigate("Login");
+  };
+
+  const handleContacutUs = () => {
+    navigation.navigate("contactUs");
   };
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -174,6 +178,9 @@ const Settings = () => {
                     if (icon === "moon") {
                       toggleDarkMode();
                     }
+                    if (icon === "mail") {
+                      handleContacutUs();
+                    }
                   }}
                 >
                   <View style={styles.row}>
@@ -223,7 +230,7 @@ const lightStyles = StyleSheet.create({
     paddingVertical: 24,
   },
   SafeAreaView: {
-    flex: 1
+    flex: 1,
   },
   section: {
     paddingHorizontal: 24,

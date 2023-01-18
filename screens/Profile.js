@@ -13,8 +13,9 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { firestore } from "../config/firebase";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Profile = ({ route }) => {
   const navigation = useNavigation();
@@ -22,6 +23,7 @@ const Profile = ({ route }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const { isDarkMode } = useContext(ThemeContext);
   const handleSendEmail = () => {
     if (!name || !email || !message) {
       alert("Please fill out all fields");
@@ -58,32 +60,60 @@ const Profile = ({ route }) => {
 
   return (
     <>
-      <ScrollView>
-        <ImageBackground
-          source={{ uri: post.image }}
-          style={styles.image}
-        ></ImageBackground>
+      <ScrollView
+        style={
+          isDarkMode ? styles.darkModePostContainer : styles.profileContainer
+        }
+      >
+        <View style={styles.titleBar}>
+          <Ionicons
+            name="ios-arrow-back"
+            size={28}
+            style={[styles.text, { color: "#52575D", fontWeight: "300" }]}
+            onPress={handleSettingsProfilePress}
+          ></Ionicons>
+        </View>
+        <View style={styles.avatarContainer}>
+          <ImageBackground
+            source={{ uri: post.avatarId }}
+            style={styles.avatar}
+          ></ImageBackground>
+        </View>
         <View style={styles.postContainer}>
           <View style={styles.textContainer}>
-            <View style={styles.firstTag}>
-              <Text style={styles.textStyleFirstTag}>
+            <View>
+              <Text
+                style={
+                  isDarkMode
+                    ? styles.darkModetextStyleFirstTag
+                    : styles.textStyleFirstTag
+                }
+              >
                 {post.firstName} {post.lastName}
               </Text>
-              <Text style={styles.textStyleFirstTag}>{post.price}$/H</Text>
+              {/* <Text style={styles.textStyleFirstTag}>{post.price}$/H</Text> */}
             </View>
             <View style={styles.touchableOpacityGroup}>
               <TouchableOpacity style={styles.touchableOpacity}>
-                <Text style={{ color: "black", fontSize: 20 }}>
-                  background:{" "}
+                <Text
+                  style={isDarkMode ? styles.darkModetextInfo : styles.textInfo}
+                >
+                  Info:
                 </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.recentItem}>
               <View style={styles.activityIndicator}></View>
               <View style={{ width: 250 }}>
-                <Text
-                  style={(styles.text, { color: "#41444B", fontWeight: "300" })}
-                >
+                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
+                  {post.price}$/H
+                </Text>
+              </View>
+            </View>
+            <View style={styles.recentItem}>
+              <View style={styles.activityIndicator}></View>
+              <View style={{ width: 250 }}>
+                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
                   {post.info}
                 </Text>
               </View>
@@ -91,9 +121,7 @@ const Profile = ({ route }) => {
             <View style={styles.recentItem}>
               <View style={styles.activityIndicator}></View>
               <View style={{ width: 250 }}>
-                <Text
-                  style={(styles.text, { color: "#41444B", fontWeight: "300" })}
-                >
+                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
                   Email: {post.email}
                 </Text>
               </View>
@@ -101,9 +129,7 @@ const Profile = ({ route }) => {
             <View style={styles.recentItem}>
               <View style={styles.activityIndicator}></View>
               <View style={{ width: 250 }}>
-                <Text
-                  style={(styles.text, { color: "#41444B", fontWeight: "300" })}
-                >
+                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
                   Phone: {post.phone}
                 </Text>
               </View>
@@ -111,9 +137,7 @@ const Profile = ({ route }) => {
             <View style={styles.recentItem}>
               <View style={styles.activityIndicator}></View>
               <View style={{ width: 250 }}>
-                <Text
-                  style={(styles.text, { color: "#41444B", fontWeight: "300" })}
-                >
+                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
                   Category: {post.category}
                 </Text>
               </View>
@@ -127,26 +151,35 @@ const Profile = ({ route }) => {
               />
             </TouchableHighlight>
             <Modal visible={isModalVisible}>
-              <View style={styles.ModalStyling}>
+              <View
+                style={
+                  isDarkMode
+                    ? styles.darkModetextModalStyling
+                    : styles.ModalStyling
+                }
+              >
                 <TextInput
                   style={styles.input}
                   placeholder="Name"
-                  placeholderTextColor={"black"}
+                  color={isDarkMode ? "white" : "black"}
+                  placeholderTextColor={isDarkMode ? "white" : "black"}
                   value={name}
                   onChangeText={setName}
                 />
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
-                  placeholderTextColor={"black"}
+                  color={isDarkMode ? "white" : "black"}
+                  placeholderTextColor={isDarkMode ? "white" : "black"}
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
                 />
                 <TextInput
                   style={styles.input}
+                  color={isDarkMode ? "white" : "black"}
                   placeholder="Message"
-                  placeholderTextColor={"black"}
+                  placeholderTextColor={isDarkMode ? "white" : "black"}
                   value={message}
                   onChangeText={setMessage}
                   multiline={true}
@@ -170,18 +203,39 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderRadius: 20,
+    marginTop: 50,
     buttom: 70,
     flexDirection: "column",
   },
   image: {
     width: "100%",
-    height: "50%",
     justifyContent: "center",
   },
-  firstTag: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  avatar: {
+    width: "100%",
+    height: "100%",
   },
+  avatarContainer: {
+    position: "absolute",
+    marginTop: 50,
+    left: "75%",
+    width: 100,
+    height: 100,
+    borderRadius: 30,
+  },
+  titleBar: {
+    position: "absolute",
+    flex: 1,
+    padding: 10,
+    marginTop: 30,
+    marginHorizontal: 16,
+  },
+
+  // firstTag: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+
+  // },
   touchableOpacityGroup: {
     flexDirection: "row",
   },
@@ -196,9 +250,19 @@ const styles = StyleSheet.create({
     fontSize: "12px",
   },
   textStyleFirstTag: {
-    fontSize: 18,
+    fontSize: 28,
     paddingVertical: 10,
     fontWeight: "bold",
+  },
+  textInfo: {
+    fontWeight: "500",
+    fontSize: 25,
+    color: "black",
+  },
+  text: {
+    color: "black",
+    fontWeight: "300",
+    fontSize: 20,
   },
   textStyle: {
     fontSize: 18,
@@ -239,5 +303,31 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginTop: 3,
     marginRight: 20,
+  },
+  darkModePostContainer: {
+    backgroundColor: "black",
+    height: "100%",
+  },
+  darkModetextStyleFirstTag: {
+    color: "white",
+    fontSize: 28,
+    paddingVertical: 10,
+    fontWeight: "bold",
+  },
+  darkModetextInfo: {
+    color: "white",
+    fontWeight: "500",
+    fontSize: 25,
+  },
+  darkModetext: {
+    color: "white",
+    fontWeight: "300",
+    fontSize: 20,
+  },
+  darkModetextModalStyling: {
+    padding: 12,
+    backgroundColor: "black",
+    height: "100%",
+    justifyContent: "center",
   },
 });

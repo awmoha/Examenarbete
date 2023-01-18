@@ -18,7 +18,6 @@ import { ThemeContext } from "../context/ThemeContext";
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [showSearch, setShowSearch] = useState(true);
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
   const [posts, setPosts] = useState([]);
 
@@ -26,8 +25,8 @@ const HomePage = () => {
   const handleSettingsProfilePress = () => {
     navigation.navigate("ProfileSettings");
   };
-  const handleProfilePress = (postId) => {
-    navigation.navigate("Profile", { postId });
+  const handleProfilePress = (postId, avatarUrl) => {
+    navigation.navigate("Profile", { postId, avatarUrl });
   };
   useEffect(() => {
     const unsubscribe = firestore
@@ -45,15 +44,6 @@ const HomePage = () => {
     setSearchTerm(text);
   };
 
-  // const handleScroll = (event) => {
-  //   const currentOffset = event.nativeEvent.contentOffset.y;
-
-  //   if (currentOffset > 0) {
-  //     setShowSearch(false);
-  //   } else {
-  //     setShowSearch(true);
-  //   }
-  // };
   const filteredPosts = posts.filter((post) => {
     return post.category.toLowerCase().includes(searchTerm.toLowerCase());
   });
@@ -63,19 +53,20 @@ const HomePage = () => {
       style={isDarkMode ? styles.darkModeSafeAreaView : styles.ScrollView}
     >
       <View style={styles.container}>
-        <View
-          style={
-            isDarkMode ? styles.darkModeSearchContainer : styles.searchContainer
-          }
-        >
-          <Ionicons name="ios-search-sharp" size={24} color="black" />
+        <View style={styles.searchContainer}>
+          <Ionicons
+            name="ios-search-sharp"
+            size={24}
+            color={isDarkMode ? "white" : "black"}
+          />
           <TextInput
             style={styles.searchInput}
             value={searchTerm}
             onChangeText={handleSearch}
             placeholder="Search by categories..."
+            color={isDarkMode ? "white" : "black"}
+            placeholderTextColor={isDarkMode ? "white" : "black"}
           />
-          <Ionicons name="filter-outline" size={24} color="black" />
         </View>
         <View style={styles.profileContainer}>
           <Ionicons
@@ -93,26 +84,33 @@ const HomePage = () => {
           </View> */}
       </View>
 
-      <View style={styles.container}>
+      <View style={styles.flatList}>
         <FlatList
           data={searchTerm ? filteredPosts : posts}
           keyExtractor={(item) => item.id}
+          style={styles.containerItems}
+          numColumns={2}
           renderItem={({ item }) => (
             <TouchableWithoutFeedback
-              onPress={() => handleProfilePress(item.id)}
+              onPress={() => handleProfilePress(item.id, item.avatarUrl)}
             >
               <View
                 style={
                   isDarkMode ? styles.darkPostContainer : styles.postContainer
                 }
               >
-                <Image source={{ uri: item?.image }} style={styles.image} />
+                <View style={styles.avatarContainer}>
+                  <Image
+                    source={{ uri: item.avatarId }}
+                    style={styles.avatar}
+                  />
+                </View>
                 <View style={styles.textContainer}>
                   <Text style={isDarkMode ? styles.darkText : styles.text}>
                     {item.firstName} {item.lastName}
                   </Text>
                   <Text style={isDarkMode ? styles.darkText : styles.text}>
-                    Category: {item.category}
+                    {item.category}
                   </Text>
                 </View>
               </View>
@@ -129,9 +127,13 @@ export default HomePage;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
     margin: 10,
   },
+  flatList: {
+    flex: 1,
+    marginTop: 10,
+  },
+
   profileContainer: {
     color: "black",
     margin: 10,
@@ -178,22 +180,40 @@ const styles = StyleSheet.create({
   },
 
   postContainer: {
-    marginVertical: 10,
-    padding: 10,
-    paddingHorizontal: 20,
+    padding: 20,
     borderWidth: 1,
+    margin: 8,
+    flex: 1,
+    width: "100%",
     borderColor: "gray",
-    borderRadius: 5,
-    flexDirection: "row",
+    borderRadius: 10,
   },
   image: {
-    width: 100,
+    width: "100%",
     height: 100,
-    marginRight: 10,
+  },
+  avatarContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    overflow: "hidden",
+  },
+  avatar: {
+    width: "100%",
+    height: "100%",
   },
   textContainer: {
-    flex: 1,
-    justifyContent: "center",
+    marginLeft: 30,
+    borderColor: "black",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  text: {
+    color: "black",
+    fontSize: 13
   },
   buttonContainer: {
     position: "absolute",
@@ -231,15 +251,16 @@ const styles = StyleSheet.create({
     color: "white",
   },
   darkPostContainer: {
-    marginVertical: 10,
-    padding: 10,
-    paddingHorizontal: 20,
+    padding: 20,
     borderWidth: 1,
+    margin: 8,
+    flex: 1,
+    width: "100%",
     borderColor: "white",
     borderRadius: 5,
-    flexDirection: "row",
   },
   darkText: {
     color: "white",
+    fontSize: 13
   },
 });

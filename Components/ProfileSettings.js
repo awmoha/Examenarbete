@@ -52,7 +52,7 @@ const ProfileSettings = () => {
         <View style={styles.titleBar}>
           <Ionicons
             name="ios-arrow-back"
-            size={24}
+            size={28}
             style={[styles.text, { color: "#52575D", fontWeight: "300" }]}
             onPress={handleSettingsProfilePress}
           ></Ionicons>

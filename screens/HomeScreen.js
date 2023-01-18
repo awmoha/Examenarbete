@@ -13,14 +13,14 @@ const HomeScreen = () => {
 
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        activeTintColor: isDarkMode ? "white" : "black",
-        inactiveTintColor: isDarkMode ? "white" : "black",
-        activeBackgroundColor : isDarkMode ? "black" : "white",
-        inactiveBackgroundColor : isDarkMode ? "black" : "white",
+      screenOptions={{
+        tabBarActiveTintColor: isDarkMode ? "white" : "black",
+        tabBarInactiveTintColor: isDarkMode ? "white" : "black",
+        tabBarActiveBackgroundColor: isDarkMode ? "black" : "white",
+        tabBarInactiveBackgroundColor: isDarkMode ? "black" : "white",
         style: {
-          backgroundColor: isDarkMode ? 'black' : 'white'
-        }
+          backgroundColor: isDarkMode ? "black" : "white",
+        },
       }}
     >
       <Tab.Screen

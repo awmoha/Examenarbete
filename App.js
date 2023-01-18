@@ -5,16 +5,16 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import Profile from "./screens/Profile";
-import { ThemeProvider  } from "./context/ThemeContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import ProfileSettings from "./Components/ProfileSettings";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import ContactUs from "./Components/ContactUs";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
     <ThemeProvider>
-      
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -29,15 +29,24 @@ export default function App() {
             name="Home"
             component={HomeScreen}
           />
-          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Profile"
+            component={Profile}
+          />
           <Stack.Screen
             options={{ headerShown: false }}
             name="ProfileSettings"
             component={ProfileSettings}
           />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="contactUs"
+            component={ContactUs}
+          />
         </Stack.Navigator>
       </NavigationContainer>
-      </ThemeProvider>
+    </ThemeProvider>
   );
 }
 
