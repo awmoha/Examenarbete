@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { firestore } from "../config/firebase";
 import React, { useState, useEffect, useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 
 const Profile = ({ route }) => {
@@ -23,6 +24,11 @@ const Profile = ({ route }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isExpreinsVisible, setIsExpreinsVisible] = useState(false);
+  const [icon, setIcon] = useState("ios-add");
+  const [isContactVisible, setIsContactVisible] = useState(false);
+  const [iconContact, setIconContact] = useState("ios-add");
+
   const { isDarkMode } = useContext(ThemeContext);
   const handleSendEmail = () => {
     if (!name || !email || !message) {
@@ -57,7 +63,14 @@ const Profile = ({ route }) => {
   const handleSettingsProfilePress = () => {
     navigation.navigate("Home");
   };
-
+  const handlePressIsExpreinsVisible = () => {
+    setIsExpreinsVisible(!isExpreinsVisible);
+    setIcon(icon === "ios-add" ? "ios-remove" : "ios-add");
+  };
+  const handlePressIsContactVisible = () => {
+    setIsContactVisible(!isContactVisible);
+    setIconContact(iconContact === "ios-add" ? "ios-remove" : "ios-add");
+  };
   return (
     <>
       <ScrollView
@@ -67,9 +80,9 @@ const Profile = ({ route }) => {
       >
         <View style={styles.titleBar}>
           <Ionicons
-            name="ios-arrow-back"
+            name="arrow-back-outline"
             size={28}
-            style={[styles.text, { color: "#52575D", fontWeight: "300" }]}
+            color={isDarkMode ? "white" : "black"}
             onPress={handleSettingsProfilePress}
           ></Ionicons>
         </View>
@@ -91,9 +104,27 @@ const Profile = ({ route }) => {
               >
                 {post.firstName} {post.lastName}
               </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="verified"
+                  size={24}
+                  color={isDarkMode ? "white" : "black"}
+                  style={{ marginRight: 5 }}
+                />
+                <Text
+                  style={
+                    isDarkMode
+                      ? styles.darkModetextCategory
+                      : styles.textCategory
+                  }
+                >
+                  {post.category}
+                </Text>
+              </View>
+
               {/* <Text style={styles.textStyleFirstTag}>{post.price}$/H</Text> */}
             </View>
-            <View style={styles.touchableOpacityGroup}>
+            {/* <View style={styles.touchableOpacityGroup}>
               <TouchableOpacity style={styles.touchableOpacity}>
                 <Text
                   style={isDarkMode ? styles.darkModetextInfo : styles.textInfo}
@@ -101,47 +132,112 @@ const Profile = ({ route }) => {
                   Info:
                 </Text>
               </TouchableOpacity>
-            </View>
-            <View style={styles.recentItem}>
-              <View style={styles.activityIndicator}></View>
-              <View style={{ width: 250 }}>
-                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
-                  {post.price}$/H
-                </Text>
+            </View> */}
+            <View style={styles.infoItem}>
+              <View style={styles.recentItem}>
+                <View style={styles.activityIndicator}></View>
+                <View style={{ width: 250 }}>
+                  <Text style={isDarkMode ? styles.darkModetext : styles.text}>
+                    {post.price}$/H
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.recentItem}>
+                <View style={styles.activityIndicator}></View>
+                <View style={{ width: 250 }}>
+                  <Text style={isDarkMode ? styles.darkModetext : styles.text}>
+                    {post.info}
+                  </Text>
+                </View>
               </View>
             </View>
-            <View style={styles.recentItem}>
-              <View style={styles.activityIndicator}></View>
-              <View style={{ width: 250 }}>
-                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
-                  {post.info}
+
+            <View>
+              <View style={styles.headerContainer}>
+                <Text
+                  style={
+                    isDarkMode ? styles.darkModetextInfo : styles.headerText
+                  }
+                >
+                  Experiences
                 </Text>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={handlePressIsExpreinsVisible}
+                >
+                  <Ionicons
+                    name={icon}
+                    size={30}
+                    color={isDarkMode ? "white" : "white"}
+                  />
+                </TouchableOpacity>
               </View>
+              {isExpreinsVisible && (
+                <View style={styles.recentItem}>
+                  <View style={styles.activityIndicator}></View>
+                  <View style={{ width: 250 }}>
+                    <Text
+                      style={isDarkMode ? styles.darkModetext : styles.text}
+                    >
+                      {post.experiences}
+                    </Text>
+                  </View>
+                </View>
+              )}
             </View>
-            <View style={styles.recentItem}>
-              <View style={styles.activityIndicator}></View>
-              <View style={{ width: 250 }}>
-                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
-                  Email: {post.email}
+            <View>
+              <View style={styles.headerContainer}>
+                <Text
+                  style={
+                    isDarkMode ? styles.darkModetextInfo : styles.headerText
+                  }
+                >
+                  Contact
                 </Text>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={handlePressIsContactVisible}
+                >
+                  <Ionicons
+                    name={iconContact}
+                    size={30}
+                    color={isDarkMode ? "white" : "white"}
+                  />
+                </TouchableOpacity>
               </View>
+              {isContactVisible && (
+                <>
+                  <View style={styles.recentItem}>
+                    <View style={styles.activityIndicator}></View>
+                    <View style={{ width: 250 }}>
+                      <Text
+                        style={isDarkMode ? styles.darkModetext : styles.text}
+                      >
+                        Email: {post.email}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.recentItem}>
+                    <View style={styles.activityIndicator}></View>
+                    <View style={{ width: 250 }}>
+                      <Text
+                        style={isDarkMode ? styles.darkModetext : styles.text}
+                      >
+                        Phone: {post.phone}
+                      </Text>
+                    </View>
+                  </View>
+                </>
+              )}
             </View>
-            <View style={styles.recentItem}>
-              <View style={styles.activityIndicator}></View>
-              <View style={{ width: 250 }}>
-                <Text style={isDarkMode ? styles.darkModetext : styles.text}>
-                  Phone: {post.phone}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.recentItem}>
+            {/* <View style={styles.recentItem}>
               <View style={styles.activityIndicator}></View>
               <View style={{ width: 250 }}>
                 <Text style={isDarkMode ? styles.darkModetext : styles.text}>
                   Category: {post.category}
                 </Text>
               </View>
-            </View>
+            </View> */}
           </View>
           <View>
             <TouchableHighlight style={styles.buttonContainer}>
@@ -268,6 +364,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingVertical: 10,
   },
+  textCategory: {
+    fontSize: 18,
+    fontWeight: "300",
+  },
   buttonContainer: {
     alignItems: "center",
     justifyContent: "center",
@@ -280,7 +380,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#2A2A2D",
   },
   ModalStyling: {
-    marginTop: 30,
+    padding: 12,
+    height: "100%",
+    justifyContent: "center",
   },
   input: {
     borderWidth: 1,
@@ -289,11 +391,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 10,
   },
+  infoItem: {
+    marginTop: 30,
+  },
   recentItem: {
     flexDirection: "row",
     alignItems: "flex-start",
-    marginTop: 10,
-    marginBottom: 16,
+    marginTop: 0,
+    marginBottom: 10,
   },
   activityIndicator: {
     backgroundColor: "#CABFAB",
@@ -304,6 +409,22 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginRight: 20,
   },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  headerText: {
+    fontWeight: "500",
+    fontSize: 25,
+    color: "black",
+  },
+  button: {
+    backgroundColor: "#2A2A2D",
+    padding: 12,
+    borderRadius: 5,
+  },
   darkModePostContainer: {
     backgroundColor: "black",
     height: "100%",
@@ -313,6 +434,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     paddingVertical: 10,
     fontWeight: "bold",
+  },
+  darkModetextCategory: {
+    fontSize: 18,
+    fontWeight: "300",
+    color: "white",
   },
   darkModetextInfo: {
     color: "white",

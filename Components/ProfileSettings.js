@@ -44,6 +44,9 @@ const ProfileSettings = () => {
   const handleCreatePost = () => {
     navigation.navigate("Post");
   };
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
   return (
     <SafeAreaView
       style={isDarkMode ? styles.darkMode_SafeAreaView : styles.container}
@@ -57,7 +60,12 @@ const ProfileSettings = () => {
             onPress={handleSettingsProfilePress}
           ></Ionicons>
           <TouchableOpacity>
-            <Ionicons name="md-moon" size={24} color="#52575D" />
+            <Ionicons
+              name="md-moon"
+              size={24}
+              color="#52575D"
+              onPress={toggleDarkMode}
+            />
           </TouchableOpacity>
         </View>
 

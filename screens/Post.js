@@ -17,6 +17,7 @@ export default function Post() {
   const [price, setPrice] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [experiences, setExperiences] = useState("");
   const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [avatarId, setAvatarId] = useState("");
@@ -27,6 +28,7 @@ export default function Post() {
     setPrice,
     setEmail,
     setPhone,
+    setExperiences,
     setImage,
     setCategory,
   ];
@@ -36,7 +38,7 @@ export default function Post() {
       !lastName ||
       !info ||
       !email ||
-      !phone ||
+      !experiences ||
       !price ||
       !category
     ) {
@@ -51,6 +53,7 @@ export default function Post() {
       price,
       email,
       phone,
+      experiences,
       image,
       category,
       avatarId: `https://robohash.org/${postId}.png`,
@@ -85,11 +88,30 @@ export default function Post() {
           style={styles.input}
           value={info}
           onChangeText={setInfo}
-          placeholder="Info..."
+          placeholder="About you..."
           color={isDarkMode ? "white" : "black"}
           placeholderTextColor={isDarkMode ? "white" : "black"}
           multiline={true}
           numberOfLines={2}
+          required
+        />
+
+        <TextInput
+          style={styles.input}
+          value={experiences}
+          onChangeText={setExperiences}
+          placeholder="Experiences...1,2,3..years"
+          color={isDarkMode ? "white" : "black"}
+          placeholderTextColor={isDarkMode ? "white" : "black"}
+          required
+        />
+        <TextInput
+          style={styles.input}
+          value={category}
+          onChangeText={setCategory}
+          placeholder="Developer, Ux, Economy, Graphic Designer, Fotograf,..."
+          color={isDarkMode ? "white" : "black"}
+          placeholderTextColor={isDarkMode ? "white" : "black"}
           required
         />
         <TextInput
@@ -102,7 +124,6 @@ export default function Post() {
           keyboardType="numeric"
           required
         />
-
         <TextInput
           style={styles.input}
           value={email}
@@ -120,23 +141,14 @@ export default function Post() {
           placeholder="Phone..."
           color={isDarkMode ? "white" : "black"}
           placeholderTextColor={isDarkMode ? "white" : "black"}
-          keyboardType="numeric"
           required
         />
+
         <TextInput
           style={styles.input}
           value={image}
           onChangeText={setImage}
           placeholder="Image URL..."
-          color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
-          required
-        />
-        <TextInput
-          style={styles.input}
-          value={category}
-          onChangeText={setCategory}
-          placeholder="Category..."
           color={isDarkMode ? "white" : "black"}
           placeholderTextColor={isDarkMode ? "white" : "black"}
           required
