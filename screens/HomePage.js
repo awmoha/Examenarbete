@@ -14,6 +14,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { firestore } from "../config/firebase";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 
 const HomePage = () => {
@@ -85,38 +86,53 @@ const HomePage = () => {
       </View>
 
       <View style={styles.flatList}>
-        <FlatList
-          data={searchTerm ? filteredPosts : posts}
-          keyExtractor={(item) => item.id}
-          style={styles.containerItems}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <TouchableWithoutFeedback
-              onPress={() => handleProfilePress(item.id, item.avatarUrl)}
-            >
-              <View
-                style={
-                  isDarkMode ? styles.darkPostContainer : styles.postContainer
-                }
+        {filteredPosts.length > 0 ? (
+          <FlatList
+            data={searchTerm ? filteredPosts : posts}
+            keyExtractor={(item) => item.id}
+            style={styles.containerItems}
+            numColumns={2}
+            renderItem={({ item }) => (
+              <TouchableWithoutFeedback
+                onPress={() => handleProfilePress(item.id, item.avatarUrl)}
               >
-                <View style={styles.avatarContainer}>
-                  <Image
-                    source={{ uri: item.avatarId }}
-                    style={styles.avatar}
-                  />
+                <View
+                  style={
+                    isDarkMode ? styles.darkPostContainer : styles.postContainer
+                  }
+                >
+                  <View style={styles.avatarContainer}>
+                    <Image
+                      source={{ uri: item.avatarId }}
+                      style={styles.avatar}
+                    />
+                  </View>
+                  <View style={styles.textContainer}>
+                    <Text style={isDarkMode ? styles.darkText : styles.text}>
+                      {item.firstName} {item.lastName}
+                    </Text>
+                    <Text style={isDarkMode ? styles.darkText : styles.text}>
+                      {item.category}
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.textContainer}>
-                  <Text style={isDarkMode ? styles.darkText : styles.text}>
-                    {item.firstName} {item.lastName}
-                  </Text>
-                  <Text style={isDarkMode ? styles.darkText : styles.text}>
-                    {item.category}
-                  </Text>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          )}
-        />
+              </TouchableWithoutFeedback>
+            )}
+          />
+        ) : (
+          <View>
+            <Entypo
+              name="emoji-sad"
+              size={40}
+              style={{alignSelf: "center"}}
+              color={isDarkMode ? "white" : "black"}
+            />
+            <Text style={isDarkMode ? styles.darkTextFel : styles.textFel}>
+              Sorry, we currently do not have any information on what you are
+              searching for.
+            </Text>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -213,7 +229,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "black",
-    fontSize: 13
+    fontSize: 13,
+  },
+  textFel: {
+    marginTop: 10,
+    color: "black",
+    textAlign: "center",
+    fontSize: 15,
   },
   buttonContainer: {
     position: "absolute",
@@ -261,6 +283,12 @@ const styles = StyleSheet.create({
   },
   darkText: {
     color: "white",
-    fontSize: 13
+    fontSize: 13,
+  },
+  darkTextFel: {
+    marginTop: 10,
+    color: "white",
+    textAlign: "center",
+    fontSize: 15,
   },
 });
