@@ -4,7 +4,7 @@ dist/
 config/
 .env/
 npm-debug.*
-*.env
+.env
 *.jks
 *.p8
 *.p12
