@@ -16,11 +16,14 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
+import { ActivityIndicator } from "react-native";
+import { LogBox } from "react-native";
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigation = useNavigation();
   const handleSettingsProfilePress = () => {
@@ -37,6 +40,7 @@ const HomePage = () => {
           return { id: doc.id, ...doc.data() };
         });
         setPosts(newPosts);
+        setIsLoading(false);
       });
     return unsubscribe;
   }, []);
@@ -48,7 +52,9 @@ const HomePage = () => {
   const filteredPosts = posts.filter((post) => {
     return post.category.toLowerCase().includes(searchTerm.toLowerCase());
   });
-
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+  }, []);
   return (
     <ScrollView
       style={isDarkMode ? styles.darkModeSafeAreaView : styles.ScrollView}
@@ -84,56 +90,61 @@ const HomePage = () => {
             </TouchableOpacity>
           </View> */}
       </View>
-
-      <View style={styles.flatList}>
-        {filteredPosts.length > 0 ? (
-          <FlatList
-            data={searchTerm ? filteredPosts : posts}
-            keyExtractor={(item) => item.id}
-            style={styles.containerItems}
-            numColumns={2}
-            renderItem={({ item }) => (
-              <TouchableWithoutFeedback
-                onPress={() => handleProfilePress(item.id, item.avatarUrl)}
-              >
-                <View
-                  style={
-                    isDarkMode ? styles.darkPostContainer : styles.postContainer
-                  }
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#588157" />
+      ) : (
+        <View style={styles.flatList}>
+          {filteredPosts.length > 0 ? (
+            <FlatList
+              data={searchTerm ? filteredPosts : posts}
+              keyExtractor={(item) => item.id}
+              style={styles.containerItems}
+              numColumns={2}
+              renderItem={({ item }) => (
+                <TouchableWithoutFeedback
+                  onPress={() => handleProfilePress(item.id, item.avatarUrl)}
                 >
-                  <View style={styles.avatarContainer}>
-                    <Image
-                      source={{ uri: item.avatarId }}
-                      style={styles.avatar}
-                    />
+                  <View
+                    style={
+                      isDarkMode
+                        ? styles.darkPostContainer
+                        : styles.postContainer
+                    }
+                  >
+                    <View style={styles.avatarContainer}>
+                      <Image
+                        source={{ uri: item.avatarId }}
+                        style={styles.avatar}
+                      />
+                    </View>
+                    <View style={styles.textContainer}>
+                      <Text style={isDarkMode ? styles.darkText : styles.text}>
+                        {item.firstName} {item.lastName}
+                      </Text>
+                      <Text style={isDarkMode ? styles.darkText : styles.text}>
+                        {item.category}
+                      </Text>
+                    </View>
                   </View>
-                  <View style={styles.textContainer}>
-                    <Text style={isDarkMode ? styles.darkText : styles.text}>
-                      {item.firstName} {item.lastName}
-                    </Text>
-                    <Text style={isDarkMode ? styles.darkText : styles.text}>
-                      {item.category}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableWithoutFeedback>
-            )}
-          />
-        ) : (
-          <View>
-            <Entypo
-              name="emoji-sad"
-              size={40}
-              style={{alignSelf: "center"}}
-              color={isDarkMode ? "white" : "black"}
+                </TouchableWithoutFeedback>
+              )}
             />
-            <Text style={isDarkMode ? styles.darkTextFel : styles.textFel}>
-              Sorry, we currently do not have any information on what you are
-              searching for.
-            </Text>
-          </View>
-        )}
-      </View>
+          ) : (
+            <View>
+              <Entypo
+                name="emoji-sad"
+                size={40}
+                style={{ alignSelf: "center" }}
+                color={isDarkMode ? "white" : "black"}
+              />
+              <Text style={isDarkMode ? styles.darkTextFel : styles.textFel}>
+                Sorry, we currently do not have any information on what you are
+                searching for.
+              </Text>
+            </View>
+          )}
+        </View>
+      )}
     </ScrollView>
   );
 };

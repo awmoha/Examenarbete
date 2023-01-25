@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState, useRef } from "react";
 import { auth } from "../config/firebase";
 import { useNavigation } from "@react-navigation/native";
-import Video from "react-native-video";
+import { Video } from "expo-av";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,45 +48,46 @@ const LoginScreen = () => {
       })
       .catch((error) => alert(error.message));
   };
-  const backgroundVideo = require("../assets/cover.mp4");
-
+  const backgroundVideo = require("../assets/vedio/cover3.mp4");
   return (
     <>
-      {/* <Video
-        source={backgroundVideo}
-        style={styles.backgroundVideo}
-        repeat
-      /> */}
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder="Email"
-              autoCapitalize="none"
-              value={email}
-              autoFocus={true}
-              onChangeText={(text) => setEmail(text)}
-              style={styles.input}
-            />
-            <TextInput
-              placeholder="Password"
-              autoCapitalize="none"
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              style={styles.input}
-              secureTextEntry
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={handleLogIn} style={styles.button}>
-              <Text style={styles.buttonText}>LogIn</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={register}
-              style={[styles.button, styles.buttonOutline]}
-            >
-              <Text style={styles.buttonOutlineText}>Register</Text>
-            </TouchableOpacity>
-          </View>
+      <KeyboardAvoidingView style={styles.container} behavior="height">
+        <Video
+          source={backgroundVideo}
+          isLooping
+          shouldPlay
+          resizeMode="cover"
+          style={styles.video}
+        />
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Email"
+            autoCapitalize="none"
+            value={email}
+            autoFocus={true}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Password"
+            autoCapitalize="none"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+            secureTextEntry
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={handleLogIn} style={styles.button}>
+            <Text style={styles.buttonText}>LogIn</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={register}
+            style={[styles.button, styles.buttonOutline]}
+          >
+            <Text style={styles.buttonOutlineText}>Register</Text>
+          </TouchableOpacity>
+        </View>
       </KeyboardAvoidingView>
     </>
   );
@@ -100,22 +101,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  video: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+  },
   inputContainer: { width: "70%" },
   input: {
-    backgroundColor: "white",
+    backgroundColor: "rgba(255,255,255,0.8)",
+    opacity: 0.7,
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
   },
   buttonContainer: {
+    opacity: 0.7,
     width: "60%",
     justifyContent: "center",
     alignContent: "center",
     marginTop: 40,
   },
   button: {
-    backgroundColor: "hsl(231, 100%, 64%)",
+    backgroundColor: "#588157",
     width: "100%",
     padding: 15,
     borderRadius: 10,
@@ -128,13 +136,6 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
   },
-  buttonText: { color: "white", fontWeight: "700", fontSize: 16 },
-  buttonOutlineText: { color: "#2A2A2D", fontWeight: "400", fontSize: 16 },
-  backgroundVideo: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
+  buttonText: { color: "white", fontWeight: "700", fontSize: 13 },
+  buttonOutlineText: { color: "#2A2A2D", fontWeight: "400", fontSize: 13 },
 });

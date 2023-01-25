@@ -4,7 +4,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import HomePage from "./HomePage";
 import Settings from "./Settings";
+import chattBot from "./ChattBot"
 import Post from "./Post";
+import { Fontisto } from '@expo/vector-icons';
 import { ThemeContext } from "../context/ThemeContext";
 const Tab = createBottomTabNavigator();
 
@@ -65,6 +67,20 @@ const HomeScreen = () => {
         }}
         name="Settings"
         component={Settings}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Fontisto
+              name={focused ? "hipchat" : "hipchat"}
+              size={26}
+              color={focused ? "#2f95dc" : "gray"}
+            />
+          ),
+        }}
+        name="chatt"
+        component={chattBot}
       />
     </Tab.Navigator>
   );

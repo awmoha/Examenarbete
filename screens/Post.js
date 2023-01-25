@@ -72,7 +72,9 @@ export default function Post() {
           onChangeText={setFirstName}
           placeholder="FirstName..."
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           required
         />
         <TextInput
@@ -81,7 +83,9 @@ export default function Post() {
           onChangeText={setLastName}
           placeholder="LastName..."
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           required
         />
         <TextInput
@@ -90,7 +94,9 @@ export default function Post() {
           onChangeText={setInfo}
           placeholder="About you..."
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           multiline={true}
           numberOfLines={2}
           required
@@ -102,7 +108,9 @@ export default function Post() {
           onChangeText={setExperiences}
           placeholder="Experiences...1,2,3..years"
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           required
         />
         <TextInput
@@ -111,7 +119,9 @@ export default function Post() {
           onChangeText={setCategory}
           placeholder="Developer, Ux, Economy, Graphic Designer, Fotograf,..."
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           required
         />
         <TextInput
@@ -120,7 +130,9 @@ export default function Post() {
           onChangeText={setPrice}
           placeholder="Price..USD"
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           keyboardType="numeric"
           required
         />
@@ -130,7 +142,9 @@ export default function Post() {
           onChangeText={setEmail}
           placeholder="Email..."
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           keyboardType="email-adress"
           required
         />
@@ -140,7 +154,9 @@ export default function Post() {
           onChangeText={setPhone}
           placeholder="Phone..."
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           required
         />
 
@@ -150,7 +166,9 @@ export default function Post() {
           onChangeText={setImage}
           placeholder="Image URL..."
           color={isDarkMode ? "white" : "black"}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
           required
         />
 

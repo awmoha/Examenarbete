@@ -258,7 +258,9 @@ const Profile = ({ route }) => {
                   style={styles.input}
                   placeholder="Name"
                   color={isDarkMode ? "white" : "black"}
-                  placeholderTextColor={isDarkMode ? "white" : "black"}
+                  placeholderTextColor={
+                    isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+                  }
                   value={name}
                   onChangeText={setName}
                 />
@@ -266,7 +268,9 @@ const Profile = ({ route }) => {
                   style={styles.input}
                   placeholder="Email"
                   color={isDarkMode ? "white" : "black"}
-                  placeholderTextColor={isDarkMode ? "white" : "black"}
+                  placeholderTextColor={
+                    isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+                  }
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
@@ -275,7 +279,9 @@ const Profile = ({ route }) => {
                   style={styles.input}
                   color={isDarkMode ? "white" : "black"}
                   placeholder="Message"
-                  placeholderTextColor={isDarkMode ? "white" : "black"}
+                  placeholderTextColor={
+                    isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+                  }
                   value={message}
                   onChangeText={setMessage}
                   multiline={true}

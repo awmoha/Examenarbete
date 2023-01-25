@@ -42,7 +42,9 @@ const ContactUs = () => {
         style={styles.input}
         placeholder="Name"
         color={isDarkMode ? "white" : "black"}
-        placeholderTextColor={isDarkMode ? "white" : "black"}
+        placeholderTextColor={
+          isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+        }
         value={name}
         onChangeText={setName}
       />
@@ -50,19 +52,23 @@ const ContactUs = () => {
         style={styles.input}
         placeholder="Email"
         color={isDarkMode ? "white" : "black"}
-        placeholderTextColor={isDarkMode ? "white" : "black"}
+        placeholderTextColor={
+          isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+        }
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
-        placeholderTextColor={isDarkMode ? "white" : "black"}
+        placeholderTextColor={
+          isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+        }
         color={isDarkMode ? "white" : "black"}
         placeholder="Message"
         value={message}
         onChangeText={setMessage}
       />
-      <Button title="Submit" onPress={handleSubmit} />
+      <Button title="Send" onPress={handleSubmit} />
     </View>
   );
 };
