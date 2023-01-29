@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { firestore } from "../config/firebase";
 import { ThemeContext } from "../context/ThemeContext";
+
 export default function Post() {
   const { isDarkMode } = useContext(ThemeContext);
   const [firstName, setFirstName] = useState("");
@@ -21,6 +22,7 @@ export default function Post() {
   const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [avatarId, setAvatarId] = useState("");
+
   const states = [
     setFirstName,
     setLastName,

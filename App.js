@@ -9,6 +9,8 @@ import { ThemeProvider } from "./context/ThemeContext";
 import ProfileSettings from "./Components/ProfileSettings";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import ContactUs from "./Components/ContactUs";
+import 'react-native-url-polyfill/auto';
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();

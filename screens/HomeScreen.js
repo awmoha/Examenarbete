@@ -4,10 +4,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import HomePage from "./HomePage";
 import Settings from "./Settings";
-import chattBot from "./ChattBot"
+import chattBot from "./ChattBot";
 import Post from "./Post";
-import { Fontisto } from '@expo/vector-icons';
+import { Fontisto } from "@expo/vector-icons";
+import { Entypo } from '@expo/vector-icons';
 import { ThemeContext } from "../context/ThemeContext";
+import FAQ from "./FAQ";
 const Tab = createBottomTabNavigator();
 
 const HomeScreen = () => {
@@ -68,7 +70,7 @@ const HomeScreen = () => {
         name="Settings"
         component={Settings}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -81,13 +83,25 @@ const HomeScreen = () => {
         }}
         name="chatt"
         component={chattBot}
+      /> */}
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Entypo
+              name={focused ? "help-with-circle" : "help-with-circle"}
+              size={26}
+              color={focused ? "#2f95dc" : "gray"}
+            />
+          ),
+        }}
+        name="FAQ"
+        component={FAQ}
       />
     </Tab.Navigator>
   );
 };
-
 export default HomeScreen;
-
 const styles = StyleSheet.create({
   containerHome: {
     flex: 1,

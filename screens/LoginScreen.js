@@ -124,10 +124,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#588157",
-    width: "100%",
+    width: "70%",
     padding: 15,
     borderRadius: 10,
-    alignContent: "center",
+    alignSelf: "center",
   },
   buttonOutline: {
     backgroundColor: "white",
@@ -136,6 +136,16 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
   },
-  buttonText: { color: "white", fontWeight: "700", fontSize: 13 },
-  buttonOutlineText: { color: "#2A2A2D", fontWeight: "400", fontSize: 13 },
+  buttonText: {
+    color: "white",
+    fontWeight: "500",
+    fontSize: 13,
+    textAlign: "center",
+  },
+  buttonOutlineText: {
+    color: "#2A2A2D",
+    fontWeight: "400",
+    fontSize: 13,
+    textAlign: "center",
+  },
 });
