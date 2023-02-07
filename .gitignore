@@ -1,8 +1,7 @@
 node_modules/
 .expo/
 dist/
-assets/
-assets/
+assets/**
 config/
 .env/
 npm-debug.*
