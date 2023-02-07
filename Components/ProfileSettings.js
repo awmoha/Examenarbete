@@ -47,6 +47,16 @@ const ProfileSettings = () => {
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  useEffect(() => {
+    const generateAvatar = async () => {
+      const randomId = Math.floor(Math.random() * 1000);
+      const response = await fetch(`https://robohash.org/random.png`);
+      setAvatarUrl({ uri: response.url });
+    };
+
+    generateAvatar();
+  }, []);
   return (
     <SafeAreaView
       style={isDarkMode ? styles.darkMode_SafeAreaView : styles.container}
@@ -72,7 +82,7 @@ const ProfileSettings = () => {
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image
-              source={require("../assets/adaptive-icon.png")}
+              source={avatarUrl}
               style={styles.image}
               resizeMode="center"
             ></Image>

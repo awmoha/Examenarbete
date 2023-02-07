@@ -120,7 +120,16 @@ const Settings = () => {
       ],
     },
   ];
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  useEffect(() => {
+    const generateAvatar = async () => {
+      const randomId = Math.floor(Math.random() * 1000);
+      const response = await fetch(`https://robohash.org/random.png`);
+      setAvatarUrl({ uri: response.url });
+    };
 
+    generateAvatar();
+  }, []);
   return (
     <SafeAreaView
       style={isDarkMode ? styles.darkMode_SafeAreaView : styles.SafeAreaView}
@@ -137,11 +146,7 @@ const Settings = () => {
             }}
           >
             <View style={styles.profileAvatarWrapper}>
-              <Image
-                alt=""
-                source={require("../assets/adaptive-icon.png")}
-                style={styles.profileAvatar}
-              />
+              <Image alt="" source={avatarUrl} style={styles.profileAvatar} />
 
               <TouchableOpacity
                 onPress={() => {

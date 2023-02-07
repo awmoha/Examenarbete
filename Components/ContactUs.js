@@ -37,7 +37,7 @@ const ContactUs = () => {
 
   return (
     <View style={isDarkMode ? styles.darkModeContainer : styles.container}>
-      <Image source={require("../assets/1.png")} style={styles.image} />
+      <Image source={require("../assets/contact.jpeg")} style={styles.image} />
       <TextInput
         style={styles.input}
         placeholder="Name"
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: "50%",
+    height: "65%",
   },
   darkModeContainer: {
     backgroundColor: "black",

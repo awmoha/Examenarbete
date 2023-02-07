@@ -10,11 +10,13 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { firestore } from "../config/firebase";
 import React, { useState, useEffect, useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -59,7 +61,30 @@ const Profile = ({ route }) => {
         setPost({ id: doc.id, ...doc.data() });
       });
   }, [postId]);
-
+  const handleDeleteProfile = () => {
+    firestore
+      .collection("posts")
+      .doc(postId)
+      .delete()
+      .then(() => {
+        navigation.navigate("Home");
+      });
+  };
+  const handlePressDelete = () => {
+    Alert.alert(
+      "Är du säker på att du vill ta bort kontot?",
+      "",
+      [
+        {
+          text: "Nej",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "Ja", onPress: handleDeleteProfile },
+      ],
+      { cancelable: false }
+    );
+  };
   const handleSettingsProfilePress = () => {
     navigation.navigate("Home");
   };
@@ -85,7 +110,16 @@ const Profile = ({ route }) => {
             color={isDarkMode ? "white" : "black"}
             onPress={handleSettingsProfilePress}
           ></Ionicons>
+          <TouchableOpacity>
+            <AntDesign
+              name="deleteuser"
+              size={24}
+              onPress={handlePressDelete}
+              color={isDarkMode ? "white" : "black"}
+            />
+          </TouchableOpacity>
         </View>
+
         <View style={styles.avatarContainer}>
           <ImageBackground
             source={{ uri: post.avatarId }}
@@ -305,7 +339,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderRadius: 20,
-    marginTop: 50,
     buttom: 70,
     flexDirection: "column",
   },
@@ -319,17 +352,18 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     position: "absolute",
-    marginTop: 50,
+    marginTop: 100,
     left: "75%",
     width: 100,
     height: 100,
     borderRadius: 30,
   },
   titleBar: {
-    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-between",
     flex: 1,
     padding: 10,
-    marginTop: 30,
+    marginTop: 40,
     marginHorizontal: 16,
   },
 

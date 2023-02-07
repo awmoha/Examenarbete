@@ -1,10 +1,19 @@
-import React, { useState } from "react";
-import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
 import faqData from "../FaqData/FaqData";
+import { ThemeContext } from "../context/ThemeContext";
 
 const FAQ = () => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const { isDarkMode } = useContext(ThemeContext);
 
   const handleQuestion = () => {
     let foundQuestion = faqData.find((data) => {
@@ -26,24 +35,39 @@ const FAQ = () => {
         answer = foundQuestion.answer;
       }
       setAnswer(answer);
+      setQuestion("")
     } else {
       setAnswer("I am not sure what you mean.");
     }
   };
-
+  const image = { uri: "../assets/1.png" };
   return (
-    <View style={styles.container}>
+    <View style={isDarkMode ? styles.darkModeContainer : styles.container}>
+      <ImageBackground
+        source={require("../assets/back.jpeg")}
+        resizeMode="cover"
+        style={styles.image}
+      ></ImageBackground>
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           value={question}
+          color={isDarkMode ? "white" : "black"}
           onChangeText={(text) => setQuestion(text)}
           placeholder="Ask a question"
+          placeholderTextColor={
+            isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
+          }
         />
         <Button title="Submit" onPress={handleQuestion} />
       </View>
       <View style={styles.answerContainer}>
-        <Text style={styles.answerText}>{answer}</Text>
+        <Text
+          style={[styles.answerText, { color: isDarkMode ? "white" : "black" }]}
+        >
+          {answer}
+        </Text>
       </View>
     </View>
   );
@@ -61,7 +85,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "80%",
     height: 60,
-    backgroundColor: "#f2f2f2",
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
@@ -72,16 +95,34 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     padding: 10,
+    borderWidth: 1,
+    borderColor: "white",
+    borderRadius: 10,
   },
   answerContainer: {
     width: "80%",
     padding: 10,
     marginVertical: 10,
-    backgroundColor: "#e5e5e5",
+    borderWidth: 1,
+    borderColor: "white",
     borderRadius: 10,
   },
   answerText: {
     fontSize: 18,
     textAlign: "center",
+  },
+  darkModeContainer: {
+    flex: 1,
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  image: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    opacity: 0.7
   },
 });
