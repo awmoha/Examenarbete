@@ -9,8 +9,9 @@ import { ThemeProvider } from "./context/ThemeContext";
 import ProfileSettings from "./Components/ProfileSettings";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import ContactUs from "./Components/ContactUs";
-import 'react-native-url-polyfill/auto';
-
+import FeadBack from "./Components/Feadback";
+import Location from "./Components/Location";
+import "react-native-url-polyfill/auto";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -45,6 +46,16 @@ export default function App() {
             options={{ headerShown: false }}
             name="contactUs"
             component={ContactUs}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="feadback"
+            component={FeadBack}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="location"
+            component={Location}
           />
         </Stack.Navigator>
       </NavigationContainer>

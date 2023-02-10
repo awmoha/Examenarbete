@@ -42,6 +42,13 @@ const Settings = () => {
   const handleContacutUs = () => {
     navigation.navigate("contactUs");
   };
+  const handleFeadBack = () => {
+    navigation.navigate("feadback");
+  };
+  const handleLocation = () => {
+    navigation.navigate("location");
+  };
+
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
@@ -71,27 +78,27 @@ const Settings = () => {
           label: "Location",
           type: "link",
         },
-        {
-          icon: "users",
-          color: "#32c759",
-          label: "Show collaborators",
-          value: true,
-          type: "boolean",
-        },
-        {
-          icon: "airplay",
-          color: "#fd2d54",
-          label: "Accessibility mode",
-          value: false,
-          type: "boolean",
-        },
+        // {
+        //   icon: "users",
+        //   color: "#32c759",
+        //   label: "Show collaborators",
+        //   value: true,
+        //   type: "boolean",
+        // },
+        // {
+        //   icon: "airplay",
+        //   color: "#fd2d54",
+        //   label: "Accessibility mode",
+        //   value: false,
+        //   type: "boolean",
+        // },
       ],
     },
     {
       header: "Help",
       icon: "help-circle",
       items: [
-        { icon: "flag", color: "#8e8d91", label: "Report Bug", type: "link" },
+        { icon: "flag", color: "#8e8d91", label: "Feaeback", type: "link" },
         { icon: "mail", color: "#007afe", label: "Contact Us", type: "link" },
       ],
     },
@@ -99,13 +106,13 @@ const Settings = () => {
       header: "Content",
       icon: "align-center",
       items: [
-        { icon: "save", color: "#32c759", label: "Saved", type: "link" },
-        {
-          icon: "download",
-          color: "#fd2d54",
-          label: "Downloads",
-          type: "link",
-        },
+        { icon: "user", color: "#588157", label: "Profil", type: "link" },
+        // {
+        //   icon: "download",
+        //   color: "#fd2d54",
+        //   label: "Downloads",
+        //   type: "link",
+        // },
       ],
     },
     {
@@ -185,6 +192,12 @@ const Settings = () => {
                     }
                     if (icon === "mail") {
                       handleContacutUs();
+                    }
+                    if (icon === "flag") {
+                      handleFeadBack();
+                    }
+                    if (icon === "navigation") {
+                      handleLocation();
                     }
                   }}
                 >

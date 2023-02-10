@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Button, Text, Image } from "react-native";
 import { firestore } from "../config/firebase";
 import { ThemeContext } from "../context/ThemeContext";
 
-const ContactUs = () => {
+const Feadback = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -15,7 +15,7 @@ const ContactUs = () => {
       return;
     }
     firestore
-      .collection("contactUs")
+      .collection("feadback")
       .add({
         name,
         email,
@@ -37,7 +37,12 @@ const ContactUs = () => {
 
   return (
     <View style={isDarkMode ? styles.darkModeContainer : styles.container}>
-      <Image source={require("../assets/contact.jpeg")} style={styles.image} />
+      <Image
+        source={{
+          uri: "https://cdn.pixabay.com/photo/2020/02/28/16/18/board-4887880_960_720.jpg",
+        }}
+        style={styles.image}
+      />
       <TextInput
         style={styles.input}
         placeholder="Name"
@@ -73,7 +78,7 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default Feadback;
 
 const styles = StyleSheet.create({
   container: {

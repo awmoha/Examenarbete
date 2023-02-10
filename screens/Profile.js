@@ -96,6 +96,33 @@ const Profile = ({ route }) => {
     setIsContactVisible(!isContactVisible);
     setIconContact(iconContact === "ios-add" ? "ios-remove" : "ios-add");
   };
+  const [updatePostModalVisible, setUpdatePostModalVisible] = useState(false);
+  const [UpdatePrice, setUpdatePrice] = useState(post.price);
+  const [updateEmail, setUpdateEmail] = useState(post.email);
+  const [updateExperiences, setUpdateExperiences] = useState(post.experiences);
+  const handleUpdatePost = () => {
+    if (!UpdatePrice) {
+      alert("Please fill out all fields");
+      return;
+    }
+
+    const postData = {
+      firstName: post.firstName,
+      lastName: post.lastName,
+      phone: post.phone,
+      category: post.category,
+      info: post.info,
+      email: post.email,
+      price: UpdatePrice,
+      experiences: updateExperiences,
+    };
+
+    firestore.collection("posts").doc(postId).update(postData);
+    setPost({ id: postId, ...postData });
+    setUpdatePostModalVisible(false);
+    setUpdatePrice("");
+    setUpdateExperiences("");
+  };
   return (
     <>
       <ScrollView
@@ -110,6 +137,14 @@ const Profile = ({ route }) => {
             color={isDarkMode ? "white" : "black"}
             onPress={handleSettingsProfilePress}
           ></Ionicons>
+
+          <TouchableOpacity onPress={() => setUpdatePostModalVisible(true)}>
+            <MaterialIcons
+              name="update"
+              size={24}
+              color={isDarkMode ? "white" : "black"}
+            />
+          </TouchableOpacity>
           <TouchableOpacity>
             <AntDesign
               name="deleteuser"
@@ -119,6 +154,34 @@ const Profile = ({ route }) => {
             />
           </TouchableOpacity>
         </View>
+        <Modal visible={updatePostModalVisible}>
+          <View
+            style={
+              isDarkMode ? styles.darkModetextModalStyling : styles.ModalStyling
+            }
+          >
+            <TextInput
+              placeholder="Price"
+              color={isDarkMode ? "white" : "black"}
+              style={styles.input}
+              onChangeText={(text) => setUpdatePrice(text)}
+              value={UpdatePrice}
+            />
+            <TextInput
+              placeholder="Experens"
+              color={isDarkMode ? "white" : "black"}
+              style={styles.input}
+              onChangeText={(text) => setUpdateExperiences(text)}
+              value={updateExperiences}
+            />
+
+            <Button title="Update" onPress={handleUpdatePost} />
+            <Button
+              title="Cancel"
+              onPress={() => setUpdatePostModalVisible(false)}
+            />
+          </View>
+        </Modal>
 
         <View style={styles.avatarContainer}>
           <ImageBackground
@@ -465,6 +528,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 5,
   },
+
   darkModePostContainer: {
     backgroundColor: "black",
     height: "100%",
