@@ -4,26 +4,28 @@ const faqData = [
   { question: "What is your name?", answer: "My name is Chatbot." },
 
   {
-    question: "How to create a new Post",
+    question: "How to create a new post?",
     answer: [
-      "You can ",
-      "The meaning of life is a personal question and can be different for everyone.",
+      "You have four hood buttons down there. one of the buttons is called post. just click there :) ",
     ],
   },
   {
     question: "What is your age?",
-    answer: ["I am an AI, I do not have an age.", "Don't ask me about my age"],
+    answer: [
+      "I am an Chattbot, I do not have an age.",
+      "Don't ask me about my age",
+    ],
   },
   {
     question: "How to change password?",
     answer:
-      "You can change your password by going to the settings page and selecting the 'Change Password' option.",
+      "You cann't change your password. You must create a new mail and remember your password",
   },
 
   {
     question: "How to delete an account?",
     answer:
-      "You can delete your account by going to the settings page and selecting the 'Delete Account' option.",
+      "You can delete your account by going to the profile page and selecting the 'Delete Account' option .",
   },
 
   {
@@ -40,8 +42,7 @@ const faqData = [
 
   {
     question: "Is it free to use the app?",
-    answer:
-      "There may be certain features that are only available to premium users. You can check the pricing plans to see what features are available for free and which ones require a subscription.",
+    answer: "Yes, always",
   },
 
   {
