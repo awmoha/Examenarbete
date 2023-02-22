@@ -1,4 +1,4 @@
-#Examenarbete Frontend developer 2023 
+<h1>#Examenarbete Frontend developer 2023</h1> 
 
 
 <h2>
@@ -22,6 +22,7 @@
 <li>scan the qr code</li>
 <li>Enjoy...... :) </li>
 
+<h2>
 #Mohammad Awad
-
+</h2>
 
