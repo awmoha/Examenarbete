@@ -115,6 +115,14 @@ const ProfileSettings = () => {
           >
             {email}
           </Text>
+          <Text
+            style={[
+              isDarkMode ? styles.darkModeText : styles.text,
+              { fontWeight: "200", fontSize: 10, marginTop: 10 },
+            ]}
+          >
+            Forget Password ?
+          </Text>
         </View>
 
         <View style={styles.statsContainer}>

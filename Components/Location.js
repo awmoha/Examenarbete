@@ -6,8 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const Location = ({ address }) => {
   const [selectedLocation, setSelectedLocation] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 56.67766256058864,
+    longitude: 12.866026466251748,
   });
   const navigation = useNavigation();
 

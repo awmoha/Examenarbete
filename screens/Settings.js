@@ -48,6 +48,9 @@ const Settings = () => {
   const handleLocation = () => {
     navigation.navigate("location");
   };
+  const handleProfile = () => {
+    navigation.navigate("ProfileSettings");
+  };
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -98,7 +101,7 @@ const Settings = () => {
       header: "Help",
       icon: "help-circle",
       items: [
-        { icon: "flag", color: "#8e8d91", label: "Feaeback", type: "link" },
+        { icon: "flag", color: "#8e8d91", label: "Feedback", type: "link" },
         { icon: "mail", color: "#007afe", label: "Contact Us", type: "link" },
       ],
     },
@@ -198,6 +201,9 @@ const Settings = () => {
                     }
                     if (icon === "navigation") {
                       handleLocation();
+                    }
+                    if (icon === "user") {
+                      handleProfile();
                     }
                   }}
                 >
