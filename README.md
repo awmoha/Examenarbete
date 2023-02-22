@@ -1,9 +1,9 @@
 #Examenarbete Frontend developer 2023 
 
 
-<summary>
+<h2>
 #React.Native app 
-</summary>
+</h2>
 <br >
 <li>javaScript</li>
 <li>react</li>
@@ -11,9 +11,9 @@
 <li>css</li>
 <li>firebase</li>
 <br >
-<summary>
+<h2>
 #Installation
-</summary>
+</h2>
 <br >
 <li>clone repo => git clone https://github.com/awmoha/Examenarbete.git</li>
 <li>npm install / yarn install</li>
