@@ -6,11 +6,11 @@
 #React.Native app 
 </summary>
 <br >
--javaScript
--react
--react.native 
--css
--firebase
+<li>-javaScript</li>
+<li>-react</li>
+<li>-react.native</li> 
+<li>-css</li>
+<li>-firebase</li>
 </details>
 <br >
 <br >
@@ -20,12 +20,12 @@
 #Installation
 </summary>
 <br >
--clone repo => git clone https://github.com/awmoha/Examenarbete.git
--npm install / yarn install
--install expo app on your mobile
--npx expo start
--scan the qr code
--Enjoy...... :) 
+<li>-clone repo => git clone https://github.com/awmoha/Examenarbete.git</li>
+<li>-npm install / yarn install</li>
+<li>-install expo app on your mobile</li>
+<li>-npx expo start</li>
+<li>-scan the qr code</li>
+<li>-Enjoy...... :) </li>
 
 </details>
 
