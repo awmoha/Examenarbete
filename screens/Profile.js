@@ -99,10 +99,11 @@ const Profile = ({ route }) => {
   const [updatePostModalVisible, setUpdatePostModalVisible] = useState(false);
   const [UpdatePrice, setUpdatePrice] = useState(post.price);
   const [updateEmail, setUpdateEmail] = useState(post.email);
-  const [updateExperiences, setUpdateExperiences] = useState(post.experiences);
+  const [updatePhone, setUpdatePhone] = useState(post.phone);
+
   const handleUpdatePost = () => {
-    if (!UpdatePrice) {
-      alert("Please fill out all fields");
+    if (!updateEmail && !UpdatePrice && !updatePhone) {
+      alert("Please fill out all ");
       return;
     }
 
@@ -114,14 +115,16 @@ const Profile = ({ route }) => {
       info: post.info,
       email: post.email,
       price: UpdatePrice,
-      experiences: updateExperiences,
+      email: updateEmail,
+      phone: updatePhone,
     };
 
     firestore.collection("posts").doc(postId).update(postData);
     setPost({ id: postId, ...postData });
     setUpdatePostModalVisible(false);
     setUpdatePrice("");
-    setUpdateExperiences("");
+    setUpdateEmail("");
+    setUpdatePhone("");
   };
   return (
     <>
@@ -160,6 +163,14 @@ const Profile = ({ route }) => {
               isDarkMode ? styles.darkModetextModalStyling : styles.ModalStyling
             }
           >
+            {/* <TextInput
+              placeholder="Experiences"
+              color={isDarkMode ? "white" : "black"}
+              style={styles.input}
+              onChangeText={(text) => setUpdateExperiences(text)}
+              value={updateExperiences}
+            /> */}
+
             <TextInput
               placeholder="Price"
               color={isDarkMode ? "white" : "black"}
@@ -168,13 +179,19 @@ const Profile = ({ route }) => {
               value={UpdatePrice}
             />
             <TextInput
-              placeholder="Experens"
+              placeholder="email"
               color={isDarkMode ? "white" : "black"}
               style={styles.input}
-              onChangeText={(text) => setUpdateExperiences(text)}
-              value={updateExperiences}
+              onChangeText={(text) => setUpdateEmail(text)}
+              value={updateEmail}
             />
-
+            <TextInput
+              placeholder="phone"
+              color={isDarkMode ? "white" : "black"}
+              style={styles.input}
+              onChangeText={(text) => setUpdatePhone(text)}
+              value={updatePhone}
+            />
             <Button title="Update" onPress={handleUpdatePost} />
             <Button
               title="Cancel"
