@@ -21,8 +21,9 @@
 <li>On your terminal => npx expo start</li>
 <li>Scan the QR code</li>
 <li>Enjoy...... :) </li>
-
-<div><strrong>N.B.</strong>To connect your VS code to the Expo app on your mobile device, both your computer and mobile device need to be connected to the same Wi-Fi network or to the same wireless router. This allows communication between your computer and mobile device, which is necessary for the app to be loaded on your mobile device via the Expo app. So make sure that your computer and mobile device are connected to the same Wi-Fi network before attempting to connect your VS code to the Expo app on your mobile device.</div>
+<br >
+<br >
+<div><strong>N.B.</strong>To connect your VS code to the Expo app on your mobile device, both your computer and mobile device need to be connected to the same Wi-Fi network or to the same wireless router. This allows communication between your computer and mobile device, which is necessary for the app to be loaded on your mobile device via the Expo app. So make sure that your computer and mobile device are connected to the same Wi-Fi network before attempting to connect your VS code to the Expo app on your mobile device.</div>
 
 <h2>
 #Mohammad Awad
