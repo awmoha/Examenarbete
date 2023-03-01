@@ -2,6 +2,7 @@ const faqData = [
   { question: ["Hi", "Hello"], answer: ["Hello there", "Hi"] },
 
   { question: "What is your name?", answer: "My name is Chatbot." },
+  { question: "Help", answer: "Hello! How can I assist you today?" },
 
   {
     question: "How to create a new post?",

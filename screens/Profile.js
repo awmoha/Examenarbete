@@ -368,6 +368,16 @@ const Profile = ({ route }) => {
                     : styles.ModalStyling
                 }
               >
+                {/* <Image
+                  source={require("../assets/sendemail.png")}
+                  style={styles.image2}
+                /> */}
+                <Image
+                  source={{
+                    uri: "https://cdn.pixabay.com/photo/2022/01/26/04/47/house-6967908__340.jpg",
+                  }}
+                  style={styles.image2}
+                />
                 <TextInput
                   style={styles.input}
                   placeholder="Name"
@@ -425,6 +435,11 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     justifyContent: "center",
+  },
+  image2: {
+    width: "100%",
+    height: "40%",
+
   },
   avatar: {
     width: "100%",
@@ -502,8 +517,8 @@ const styles = StyleSheet.create({
   ModalStyling: {
     padding: 12,
     height: "100%",
-    justifyContent: "center",
   },
+  
   input: {
     borderWidth: 1,
     borderColor: "gray",
@@ -572,9 +587,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   darkModetextModalStyling: {
-    padding: 12,
     backgroundColor: "black",
     height: "100%",
-    justifyContent: "center",
   },
 });

@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   darkModeContainer: {
     backgroundColor: "black",
     height: "100%",
+    
   },
   //   darkModeInput: {
   //     backgroundColor: "white",
