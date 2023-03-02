@@ -170,7 +170,12 @@ const Profile = ({ route }) => {
               onChangeText={(text) => setUpdateExperiences(text)}
               value={updateExperiences}
             /> */}
-
+            <Image
+              source={{
+                uri: "https://cdn.pixabay.com/photo/2016/09/15/18/32/update-1672363_960_720.jpg",
+              }}
+              style={styles.image2}
+            />
             <TextInput
               placeholder="Price"
               color={isDarkMode ? "white" : "black"}
@@ -439,7 +444,6 @@ const styles = StyleSheet.create({
   image2: {
     width: "100%",
     height: "40%",
-
   },
   avatar: {
     width: "100%",
@@ -518,7 +522,7 @@ const styles = StyleSheet.create({
     padding: 12,
     height: "100%",
   },
-  
+
   input: {
     borderWidth: 1,
     borderColor: "gray",
