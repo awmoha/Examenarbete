@@ -8,6 +8,7 @@ import {
   ImageBackground,
 } from "react-native";
 import faqData from "../FaqData/FaqData";
+import { Ionicons } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 
 const FAQ = () => {
@@ -35,7 +36,7 @@ const FAQ = () => {
         answer = foundQuestion.answer;
       }
       setAnswer(answer);
-      setQuestion("")
+      setQuestion("");
     } else {
       setAnswer("I am not sure what you mean.");
     }
@@ -44,7 +45,10 @@ const FAQ = () => {
   return (
     <View style={isDarkMode ? styles.darkModeContainer : styles.container}>
       <ImageBackground
-        source={require("../assets/back.jpeg")}
+        // source={require("../assets/back.jpeg")}
+        source={{
+          url: "https://cdn.pixabay.com/photo/2015/12/01/15/43/black-1072366__340.jpg",
+        }}
         resizeMode="cover"
         style={styles.image}
       ></ImageBackground>
@@ -60,7 +64,15 @@ const FAQ = () => {
             isDarkMode ? "rgba(255, 255, 255, 0.5)" : "rgba(1,1,1, 0.5)"
           }
         />
-        <Button title="Submit" onPress={handleQuestion} />
+        <View style={styles.InputContainerSend}>
+          <Ionicons
+            onPress={handleQuestion}
+            name="ios-send-sharp"
+            size={24}
+            style={isDarkMode ? styles.darkIcon : styles.lightIcon}
+            color="black"
+          />
+        </View>
       </View>
       <View style={styles.answerContainer}>
         <Text
@@ -99,6 +111,9 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderRadius: 10,
   },
+  InputContainerSend:{
+    paddingLeft: 5,
+  },
   answerContainer: {
     width: "80%",
     padding: 10,
@@ -117,12 +132,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  darkIcon: {
+    paddingLeft: 8,
+    color: "white",
+  },
+  lightIcon: {
+    color: "black",
+    paddingLeft: 8,
+
+  },
 
   image: {
     flex: 1,
     width: "100%",
     height: "100%",
     position: "absolute",
-    opacity: 0.7
+    opacity: 0.7,
   },
 });

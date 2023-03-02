@@ -15,7 +15,7 @@ const Feadback = () => {
       return;
     }
     firestore
-      .collection("feadback")
+      .collection("feedback")
       .add({
         name,
         email,
