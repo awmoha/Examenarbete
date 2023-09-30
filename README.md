@@ -1,6 +1,7 @@
 <h1>#Examenarbete Frontend developer 2023</h1> 
 
-react-native.jpg
+![Alt text](<react-native.jpg>)
+
 
 <h2>
 #React.Native app 
