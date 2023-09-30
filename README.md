@@ -1,5 +1,5 @@
 <h1>#Examenarbete Frontend developer 2023</h1> 
-
+![Alternativ text](https://myporfolio-f500c.web.app/static/media/2.def8ba1fe62349b1a62f.jpg)
 
 <h2>
 #React.Native app 
